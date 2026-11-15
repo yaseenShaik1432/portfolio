@@ -1,7 +1,18 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowUpRight, Download, Mail, MapPin, Phone } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
+import { ArrowUpRight, Download, Mail, MapPin, Sparkles, Terminal } from "lucide-react";
+import {
+  BlurText,
+  CountUp,
+  MagneticLink,
+  Marquee,
+  Reveal,
+  SpotlightCard,
+  Typewriter,
+} from "./effects";
+import { claudeWorkflow, journey, profile, projects, skills, stats, type Project } from "@/lib/data";
 
 function Github({ className }: { className?: string }) {
   return (
@@ -18,22 +29,12 @@ function Linkedin({ className }: { className?: string }) {
     </svg>
   );
 }
-import {
-  BlurText,
-  CountUp,
-  MagneticLink,
-  Marquee,
-  Reveal,
-  SpotlightCard,
-  Typewriter,
-} from "./effects";
-import { education, experience, profile, projects, skills, stats } from "@/lib/data";
 
 const nav = [
-  ["About", "#about"],
+  ["Work", "#work"],
+  ["Claude", "#claude"],
   ["Skills", "#skills"],
-  ["Experience", "#experience"],
-  ["Projects", "#projects"],
+  ["Journey", "#journey"],
   ["Contact", "#contact"],
 ];
 
@@ -57,7 +58,7 @@ export function Navbar() {
           href="#contact"
           className="rounded-full bg-white px-4 py-1.5 text-sm font-medium text-black transition hover:bg-violet-200"
         >
-          Hire me
+          Let&apos;s talk
         </a>
       </nav>
     </header>
@@ -77,34 +78,35 @@ export function Hero() {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
           </span>
-          Open to opportunities &amp; freelance projects
+          Open to roles &amp; freelance projects
         </motion.div>
 
         <h1 className="text-5xl font-semibold leading-[1.05] tracking-tight sm:text-7xl">
-          <BlurText text="Hi, I'm" className="text-zinc-200" />
+          <BlurText text="I design, build" className="text-zinc-200" />
           <br />
-          <BlurText text="Shaik Mohammad Yaseen" className="gradient-text" />
+          <BlurText text="& ship products." className="gradient-text" />
         </h1>
 
         <p className="mt-6 text-lg text-zinc-400 sm:text-xl">
-          {profile.title} · <Typewriter phrases={profile.roles} />
+          <Typewriter phrases={profile.roles} />
         </p>
 
         <p className="mx-auto mt-6 max-w-2xl text-balance text-zinc-400">
-          I build fast, secure and scalable web applications — from enterprise Angular micro-frontends to
-          HIPAA-compliant healthcare platforms in React &amp; Next.js.
+          Hi, I&apos;m <span className="text-zinc-200">{profile.name}</span> — a full stack engineer. Below is the
+          work I&apos;m proudest of, from a GST billing app used by real businesses to healthcare platforms built
+          under strict compliance.
         </p>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <MagneticLink
-            href="#projects"
+            href="#work"
             className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-violet-500 to-cyan-400 px-6 py-3 font-medium text-black shadow-[0_0_40px_-8px_rgba(139,92,246,0.9)]"
           >
-            View my work
+            See my work
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </MagneticLink>
           <MagneticLink
-            href="/Shaik_Mohammad_Yaseen_Resume.pdf"
+            href={profile.resume}
             external
             className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 font-medium backdrop-blur hover:bg-white/10"
           >
@@ -116,45 +118,243 @@ export function Hero() {
           <a href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="hover:text-white">
             <Github className="h-5 w-5" />
           </a>
-          <a href={profile.linkedin.startsWith("http") ? profile.linkedin : `https://${profile.linkedin}`} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:text-white">
+          <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:text-white">
             <Linkedin className="h-5 w-5" />
           </a>
           <a href={`mailto:${profile.email}`} aria-label="Email" className="hover:text-white">
             <Mail className="h-5 w-5" />
           </a>
         </div>
+
+        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-3 gap-4 font-mono text-xs text-zinc-500">
+          {["01 · Design", "02 · Build", "03 · Ship"].map((s) => (
+            <div key={s} className="rounded-xl border border-white/10 bg-white/[0.03] py-3">
+              {s}
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
-function SectionTitle({ eyebrow, title }: { eyebrow: string; title: string }) {
+function SectionTitle({ eyebrow, title, sub }: { eyebrow: string; title: string; sub?: string }) {
   return (
     <Reveal className="mb-12">
       <p className="font-mono text-sm text-violet-400">{eyebrow}</p>
       <h2 className="mt-2 text-3xl font-semibold tracking-tight sm:text-5xl">{title}</h2>
+      {sub && <p className="mt-3 max-w-2xl text-zinc-400">{sub}</p>}
     </Reveal>
+  );
+}
+
+function ClaudeBadge() {
+  return (
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-orange-300/30 bg-orange-300/10 px-2.5 py-1 font-mono text-[11px] text-orange-200">
+      <Sparkles className="h-3 w-3" /> Built with Claude
+    </span>
+  );
+}
+
+function FeaturedProject({ p }: { p: Project }) {
+  return (
+    <Reveal>
+      <SpotlightCard className="grid gap-0 lg:grid-cols-2">
+        <div className="relative min-h-[260px] overflow-hidden border-b border-white/10 bg-gradient-to-br from-violet-500/20 via-transparent to-cyan-400/10 lg:border-r lg:border-b-0">
+          {p.image && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={p.image}
+              alt={`${p.name} website preview`}
+              className="absolute inset-0 h-full w-full object-cover"
+              loading="lazy"
+            />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+        </div>
+        <div className="flex flex-col p-7 sm:p-9">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="font-mono text-xs text-cyan-300">Featured · {p.category}</span>
+            {p.builtWithClaude && <ClaudeBadge />}
+          </div>
+          <div className="mt-3 flex items-center gap-3">
+            {p.icon && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={p.icon} alt="" className="h-10 w-10 rounded-xl" loading="lazy" />
+            )}
+            <h3 className="text-3xl font-semibold">{p.name}</h3>
+          </div>
+          <p className="mt-1 text-violet-300">{p.tag}</p>
+          <p className="mt-4 text-sm leading-relaxed text-zinc-400">{p.description}</p>
+          <ul className="mt-5 space-y-2 text-sm text-zinc-300">
+            {p.highlights.map((h) => (
+              <li key={h} className="flex gap-2">
+                <span className="text-emerald-400">✓</span>
+                {h}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {p.stack.map((s) => (
+              <span key={s} className="rounded-full border border-white/10 px-2.5 py-1 font-mono text-[11px] text-zinc-400">
+                {s}
+              </span>
+            ))}
+          </div>
+          <div className="mt-auto flex flex-wrap gap-3 pt-7">
+            {p.links?.map((l, i) => (
+              <a
+                key={l.href}
+                href={l.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={
+                  i === 0
+                    ? "inline-flex items-center gap-1.5 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-black hover:bg-violet-200"
+                    : "inline-flex items-center gap-1.5 rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium hover:bg-white/10"
+                }
+              >
+                {l.label} <ArrowUpRight className="h-4 w-4" />
+              </a>
+            ))}
+          </div>
+        </div>
+      </SpotlightCard>
+    </Reveal>
+  );
+}
+
+const filters = ["All", "Product", "Healthcare", "Enterprise"] as const;
+
+export function Work() {
+  const [filter, setFilter] = useState<(typeof filters)[number]>("All");
+  const featured = projects.find((p) => p.featured)!;
+  const rest = projects.filter((p) => !p.featured && (filter === "All" || p.category === filter));
+  return (
+    <section id="work" className="mx-auto max-w-6xl px-6 py-28">
+      <SectionTitle
+        eyebrow="01 — Work"
+        title="Things I've built"
+        sub="Real products, real users, real constraints. Here's what I've shipped."
+      />
+      <FeaturedProject p={featured} />
+
+      <div className="mt-16 mb-8 flex flex-wrap items-center gap-2">
+        {filters.map((f) => (
+          <button
+            key={f}
+            onClick={() => setFilter(f)}
+            className={`rounded-full border px-4 py-1.5 text-sm transition ${
+              filter === f
+                ? "border-violet-400 bg-violet-500/20 text-white"
+                : "border-white/10 text-zinc-400 hover:text-white"
+            }`}
+          >
+            {f}
+          </button>
+        ))}
+      </div>
+
+      <motion.div layout className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <AnimatePresence mode="popLayout">
+          {rest.map((p, i) => (
+            <motion.div
+              key={p.slug}
+              layout
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.96 }}
+              transition={{ duration: 0.35 }}
+            >
+              <SpotlightCard className="flex h-full flex-col p-6">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs text-zinc-500">{String(i + 2).padStart(2, "0")}</span>
+                  <span className="font-mono text-xs text-cyan-300">{p.category}</span>
+                </div>
+                <h3 className="mt-3 text-2xl font-semibold">{p.name}</h3>
+                <p className="text-sm text-violet-300">{p.tag}</p>
+                <p className="mt-4 text-sm leading-relaxed text-zinc-400">{p.description}</p>
+                <ul className="mt-4 space-y-2 text-sm text-zinc-300">
+                  {p.highlights.map((h) => (
+                    <li key={h} className="flex gap-2">
+                      <span className="text-emerald-400">✓</span>
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-auto flex flex-wrap gap-2 pt-6">
+                  {p.stack.map((s) => (
+                    <span key={s} className="rounded-full border border-white/10 px-2.5 py-1 font-mono text-[11px] text-zinc-400">
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              </SpotlightCard>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
+    </section>
+  );
+}
+
+export function BuiltWithClaude() {
+  return (
+    <section id="claude" className="mx-auto max-w-6xl px-6 py-28">
+      <SectionTitle
+        eyebrow="02 — Building with Claude"
+        title="AI-assisted, human-owned"
+        sub="I use Claude to move faster on planning, building and auditing. Every decision and merge is still mine."
+      />
+      <div className="grid gap-6 lg:grid-cols-5">
+        <Reveal className="lg:col-span-2">
+          <SpotlightCard className="h-full p-0">
+            <div className="flex items-center gap-2 border-b border-white/10 px-4 py-3 text-xs text-zinc-500">
+              <Terminal className="h-4 w-4" /> claude
+              <span className="ml-auto flex gap-1.5">
+                <i className="h-2.5 w-2.5 rounded-full bg-red-400/70" />
+                <i className="h-2.5 w-2.5 rounded-full bg-yellow-400/70" />
+                <i className="h-2.5 w-2.5 rounded-full bg-green-400/70" />
+              </span>
+            </div>
+            <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-relaxed text-zinc-300">
+              <span className="text-violet-400">$</span> claude{"\n"}
+              <span className="text-zinc-500">&gt; plan → build → audit → ship</span>
+              {"\n\n"}
+              <span className="text-emerald-400">✓</span> ZestBill desktop app{"\n"}
+              <span className="text-emerald-400">✓</span> zestbill.in marketing site{"\n"}
+              <span className="text-emerald-400">✓</span> Code audits &amp; cleanups{"\n"}
+              <span className="text-emerald-400">✓</span> This portfolio
+            </pre>
+          </SpotlightCard>
+        </Reveal>
+        <div className="grid gap-4 sm:grid-cols-2 lg:col-span-3">
+          {claudeWorkflow.map((s, i) => (
+            <Reveal key={s.n} delay={i * 0.07}>
+              <SpotlightCard className="h-full p-5">
+                <span className="font-mono text-xs text-orange-300">{s.n}</span>
+                <h3 className="mt-1 text-lg font-medium">{s.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-zinc-400">{s.text}</p>
+              </SpotlightCard>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
 export function About() {
   return (
-    <section id="about" className="mx-auto max-w-6xl px-6 py-28">
-      <SectionTitle eyebrow="01 — About" title="Engineering with impact" />
-      <div className="grid gap-10 lg:grid-cols-5">
+    <section id="about" className="mx-auto max-w-6xl px-6 py-20">
+      <div className="grid items-center gap-10 lg:grid-cols-5">
         <Reveal className="lg:col-span-3">
-          <p className="text-lg leading-relaxed text-zinc-300">{profile.summary}</p>
-          <p className="mt-6 flex items-center gap-2 text-zinc-400">
+          <p className="font-mono text-sm text-violet-400">03 — About</p>
+          <h2 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">The person behind the code</h2>
+          <p className="mt-5 text-lg leading-relaxed text-zinc-300">{profile.summary}</p>
+          <p className="mt-5 flex items-center gap-2 text-zinc-400">
             <MapPin className="h-4 w-4 text-violet-400" /> {profile.location}
           </p>
-          <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-sm text-zinc-400">
-            <p className="font-medium text-zinc-200">{education.degree}</p>
-            <p>
-              {education.school} · {education.detail}
-            </p>
-            <p className="mt-3">{education.cert}</p>
-            <p className="mt-1 text-zinc-500">{education.languages}</p>
-          </div>
         </Reveal>
         <div className="grid grid-cols-2 gap-4 lg:col-span-2">
           {stats.map((s, i) => (
@@ -176,9 +376,9 @@ export function About() {
 export function Skills() {
   const all = Object.values(skills).flat();
   return (
-    <section id="skills" className="mx-auto max-w-6xl px-6 py-28">
-      <SectionTitle eyebrow="02 — Skills" title="Tools of the trade" />
-      <Reveal className="mb-10">
+    <section id="skills" className="mx-auto max-w-6xl px-6 py-24">
+      <SectionTitle eyebrow="04 — Toolbox" title="What I work with" />
+      <Reveal className="mb-8">
         <Marquee items={all} />
       </Reveal>
       <div className="grid gap-5 sm:grid-cols-2">
@@ -201,69 +401,32 @@ export function Skills() {
   );
 }
 
-export function Experience() {
+export function Journey() {
   return (
-    <section id="experience" className="mx-auto max-w-4xl px-6 py-28">
-      <SectionTitle eyebrow="03 — Experience" title="Where I've worked" />
-      <div className="relative border-l border-white/10 pl-8">
-        {experience.map((e, i) => (
-          <Reveal key={e.role + e.period} delay={i * 0.05} className="relative mb-12 last:mb-0">
-            <span className="absolute -left-[41px] top-2 h-4 w-4 rounded-full border-2 border-violet-400 bg-black shadow-[0_0_14px_rgba(139,92,246,0.9)]" />
-            <SpotlightCard className="p-6">
-              <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <h3 className="text-xl font-semibold">{e.role}</h3>
-                <span className="font-mono text-xs text-cyan-300">{e.period}</span>
+    <section id="journey" className="mx-auto max-w-4xl px-6 py-24">
+      <SectionTitle eyebrow="05 — Journey" title="Where I've shipped" />
+      <div className="divide-y divide-white/10 rounded-2xl border border-white/10 bg-white/[0.03]">
+        {journey.map((j, i) => (
+          <Reveal key={j.role + j.period} delay={i * 0.05}>
+            <div className="grid gap-2 p-6 sm:grid-cols-[140px_1fr]">
+              <span className="font-mono text-sm text-cyan-300">{j.period}</span>
+              <div>
+                <h3 className="font-medium">
+                  {j.role} <span className="text-violet-300">· {j.company}</span>
+                </h3>
+                <p className="mt-1 text-sm text-zinc-400">{j.note}</p>
               </div>
-              <p className="text-violet-300">
-                {e.company} <span className="text-zinc-500">· {e.location}</span>
-              </p>
-              <ul className="mt-4 space-y-2 text-sm leading-relaxed text-zinc-400">
-                {e.points.map((p) => (
-                  <li key={p} className="flex gap-2">
-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-violet-400" />
-                    {p}
-                  </li>
-                ))}
-              </ul>
-            </SpotlightCard>
+            </div>
           </Reveal>
         ))}
       </div>
-    </section>
-  );
-}
-
-export function Projects() {
-  return (
-    <section id="projects" className="mx-auto max-w-6xl px-6 py-28">
-      <SectionTitle eyebrow="04 — Projects" title="Selected work" />
-      <div className="grid gap-6 lg:grid-cols-3">
-        {projects.map((p, i) => (
-          <Reveal key={p.name} delay={i * 0.1}>
-            <SpotlightCard className="flex h-full flex-col p-6">
-              <p className="font-mono text-xs text-cyan-300">{p.category}</p>
-              <h3 className="mt-2 text-2xl font-semibold">{p.name}</h3>
-              <p className="text-sm text-violet-300">{p.tag}</p>
-              <p className="mt-4 text-sm leading-relaxed text-zinc-400">{p.description}</p>
-              <ul className="mt-4 space-y-2 text-sm text-zinc-300">
-                {p.highlights.map((h) => (
-                  <li key={h} className="flex gap-2">
-                    <span className="text-emerald-400">✓</span>
-                    {h}
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-auto flex flex-wrap gap-2 pt-6">
-                {p.stack.map((s) => (
-                  <span key={s} className="rounded-full border border-white/10 px-2.5 py-1 font-mono text-[11px] text-zinc-400">
-                    {s}
-                  </span>
-                ))}
-              </div>
-            </SpotlightCard>
-          </Reveal>
-        ))}
-      </div>
+      <p className="mt-4 text-sm text-zinc-500">
+        Want the full details?{" "}
+        <a href={profile.resume} target="_blank" rel="noopener noreferrer" className="text-violet-300 underline-offset-4 hover:underline">
+          Open my resume
+        </a>
+        .
+      </p>
     </section>
   );
 }
@@ -273,12 +436,12 @@ export function Contact() {
     <section id="contact" className="mx-auto max-w-4xl px-6 py-28">
       <Reveal>
         <SpotlightCard className="p-10 text-center sm:p-16">
-          <p className="font-mono text-sm text-violet-400">05 — Contact</p>
+          <p className="font-mono text-sm text-violet-400">06 — Contact</p>
           <h2 className="gradient-text mt-3 text-4xl font-semibold tracking-tight sm:text-6xl">
-            Let&apos;s build something great
+            Ready to build something?
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-zinc-400">
-            Hiring for a full stack or frontend role, or have a project in mind? I&apos;d love to hear about it.
+            Hiring for a full stack or frontend role, or have a product in mind? I&apos;d love to hear about it.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <MagneticLink
@@ -288,10 +451,25 @@ export function Contact() {
               <Mail className="h-4 w-4" /> {profile.email}
             </MagneticLink>
             <MagneticLink
-              href={`tel:${profile.phone.replace(/\s/g, "")}`}
+              href={profile.linkedin}
+              external
               className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 font-medium"
             >
-              <Phone className="h-4 w-4" /> {profile.phone}
+              <Linkedin className="h-4 w-4" /> LinkedIn
+            </MagneticLink>
+            <MagneticLink
+              href={profile.resume}
+              external
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 font-medium"
+            >
+              <Download className="h-4 w-4" /> Resume
+            </MagneticLink>
+            <MagneticLink
+              href={profile.github}
+              external
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 font-medium"
+            >
+              <Github className="h-4 w-4" /> GitHub
             </MagneticLink>
           </div>
         </SpotlightCard>
@@ -303,7 +481,7 @@ export function Contact() {
 export function Footer() {
   return (
     <footer className="border-t border-white/10 px-6 py-8 text-center text-sm text-zinc-500">
-      © 2026 {profile.name}. Built with Next.js, Tailwind &amp; Framer Motion.
+      © 2026 {profile.name}. Built with Next.js, Tailwind, Framer Motion &amp; Claude.
     </footer>
   );
 }

@@ -1,13 +1,14 @@
 import { Aurora, CursorGlow, ScrollProgress } from "@/components/effects";
 import {
   About,
+  BuiltWithClaude,
   Contact,
-  Experience,
   Footer,
   Hero,
+  Journey,
   Navbar,
-  Projects,
   Skills,
+  Work,
 } from "@/components/sections";
 
 export default function Home() {
@@ -19,10 +20,11 @@ export default function Home() {
       <Navbar />
       <main className="relative z-10">
         <Hero />
+        <Work />
+        <BuiltWithClaude />
         <About />
         <Skills />
-        <Experience />
-        <Projects />
+        <Journey />
         <Contact />
       </main>
       <Footer />
