@@ -1,4 +1,4 @@
-import { Aurora, CursorGlow, ScrollProgress } from "@/components/effects";
+import { ScrollProgress } from "@/components/effects";
 import {
   About,
   BuiltWithClaude,
@@ -14,11 +14,9 @@ import {
 export default function Home() {
   return (
     <>
-      <Aurora />
-      <CursorGlow />
       <ScrollProgress />
       <Navbar />
-      <main className="relative z-10">
+      <main>
         <Hero />
         <Work />
         <BuiltWithClaude />

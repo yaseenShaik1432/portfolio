@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
+import "@fontsource-variable/source-serif-4";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Shaik Mohammad Yaseen — Full Stack Software Engineer",
   description:
-    "Full Stack Software Engineer with 4+ years building enterprise Angular micro-frontends and HIPAA-compliant healthcare platforms in React and Next.js.",
+    "Full stack engineer building billing software, healthcare platforms and enterprise interfaces. Creator of ZestBill.",
   openGraph: {
     title: "Shaik Mohammad Yaseen — Full Stack Software Engineer",
-    description:
-      "Enterprise micro-frontends, secure healthcare platforms, and performance-obsessed UIs.",
+    description: "Billing software, healthcare platforms and enterprise interfaces.",
     type: "website",
   },
 };
