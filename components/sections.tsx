@@ -67,7 +67,7 @@ export function Navbar() {
 
 export function Hero() {
   return (
-    <section id="top" className="relative flex min-h-screen items-center justify-center px-6 pt-24">
+    <section id="top" className="relative flex min-h-[88vh] items-center justify-center px-6 pt-28 pb-10">
       <div className="mx-auto max-w-4xl text-center">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -126,7 +126,7 @@ export function Hero() {
           </a>
         </div>
 
-        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-3 gap-4 font-mono text-xs text-zinc-500">
+        <div className="mx-auto mt-12 grid max-w-2xl grid-cols-3 gap-4 font-mono text-xs text-zinc-500">
           {["01 · Design", "02 · Build", "03 · Ship"].map((s) => (
             <div key={s} className="rounded-xl border border-white/10 bg-white/[0.03] py-3">
               {s}
@@ -140,7 +140,7 @@ export function Hero() {
 
 function SectionTitle({ eyebrow, title, sub }: { eyebrow: string; title: string; sub?: string }) {
   return (
-    <Reveal className="mb-12">
+    <Reveal className="mb-8">
       <p className="font-mono text-sm text-violet-400">{eyebrow}</p>
       <h2 className="mt-2 text-3xl font-semibold tracking-tight sm:text-5xl">{title}</h2>
       {sub && <p className="mt-3 max-w-2xl text-zinc-400">{sub}</p>}
@@ -156,21 +156,67 @@ function ClaudeBadge() {
   );
 }
 
+
+function ZestBillMock() {
+  const rows = [
+    ["Wireless keypad", "8471", "2", "₹ 1,200"],
+    ["USB cable 1m", "8544", "5", "₹ 750"],
+    ["Thermal roll 80mm", "4811", "10", "₹ 1,500"],
+  ];
+  return (
+    <div className="relative flex h-full min-h-[300px] items-center justify-center overflow-hidden bg-gradient-to-br from-violet-500/25 via-transparent to-cyan-400/15 p-6 sm:p-8">
+      <div className="absolute -top-16 -left-10 h-56 w-56 rounded-full bg-violet-500/30 blur-3xl" />
+      <div className="absolute -right-10 -bottom-16 h-56 w-56 rounded-full bg-cyan-400/20 blur-3xl" />
+      <div className="relative w-full max-w-md rotate-[-1.5deg] rounded-2xl border border-white/15 bg-zinc-950/90 p-5 shadow-2xl shadow-violet-500/20">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-violet-500 to-cyan-400 text-sm font-bold text-black">Z</span>
+            <span className="font-semibold">ZestBill</span>
+          </div>
+          <span className="rounded-full bg-emerald-400/15 px-2.5 py-1 font-mono text-[10px] text-emerald-300">TAX INVOICE</span>
+        </div>
+        <div className="mt-4 grid grid-cols-3 gap-2 text-center">
+          {[["Sales today", "₹ 3,450"], ["GST", "₹ 621"], ["Dues", "2"]].map(([k, v]) => (
+            <div key={k} className="rounded-lg border border-white/10 bg-white/[0.04] py-2">
+              <p className="text-[10px] text-zinc-500">{k}</p>
+              <p className="font-mono text-sm text-zinc-100">{v}</p>
+            </div>
+          ))}
+        </div>
+        <table className="mt-4 w-full text-left text-[11px]">
+          <thead className="text-zinc-500">
+            <tr><th className="pb-1 font-normal">Item</th><th className="font-normal">HSN</th><th className="font-normal">Qty</th><th className="text-right font-normal">Amount</th></tr>
+          </thead>
+          <tbody className="text-zinc-300">
+            {rows.map((r) => (
+              <tr key={r[0]} className="border-t border-white/10">
+                <td className="py-1.5">{r[0]}</td><td className="font-mono text-zinc-500">{r[1]}</td><td>{r[2]}</td><td className="text-right font-mono">{r[3]}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-3 text-xs">
+          <span className="text-zinc-500">CGST + SGST included</span>
+          <span className="font-mono text-sm text-zinc-100">₹ 3,450</span>
+        </div>
+        <div className="mt-3 flex gap-2 text-[10px]">
+          <span className="rounded-md bg-white/10 px-2 py-1">Print A4 / 80mm</span>
+          <span className="rounded-md bg-white/10 px-2 py-1">UPI QR</span>
+          <span className="rounded-md bg-emerald-400/15 px-2 py-1 text-emerald-300">Share on WhatsApp</span>
+        </div>
+      </div>
+      <span className="absolute right-3 bottom-2 font-mono text-[10px] text-zinc-500">Illustrative sample data</span>
+    </div>
+  );
+}
+
 function FeaturedProject({ p }: { p: Project }) {
   return (
     <Reveal>
-      <SpotlightCard className="grid gap-0 lg:grid-cols-2">
-        <div className="relative min-h-[260px] overflow-hidden border-b border-white/10 bg-gradient-to-br from-violet-500/20 via-transparent to-cyan-400/10 lg:border-r lg:border-b-0">
-          {p.image && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={p.image}
-              alt={`${p.name} website preview`}
-              className="absolute inset-0 h-full w-full object-cover"
-              loading="lazy"
-            />
-          )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+      <SpotlightCard>
+        <div className="grid lg:grid-cols-2">
+        <div className="border-b border-white/10 lg:border-r lg:border-b-0">
+          <ZestBillMock />
         </div>
         <div className="flex flex-col p-7 sm:p-9">
           <div className="flex flex-wrap items-center gap-3">
@@ -178,10 +224,6 @@ function FeaturedProject({ p }: { p: Project }) {
             {p.builtWithClaude && <ClaudeBadge />}
           </div>
           <div className="mt-3 flex items-center gap-3">
-            {p.icon && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={p.icon} alt="" className="h-10 w-10 rounded-xl" loading="lazy" />
-            )}
             <h3 className="text-3xl font-semibold">{p.name}</h3>
           </div>
           <p className="mt-1 text-violet-300">{p.tag}</p>
@@ -219,6 +261,7 @@ function FeaturedProject({ p }: { p: Project }) {
             ))}
           </div>
         </div>
+      </div>
       </SpotlightCard>
     </Reveal>
   );
@@ -231,7 +274,7 @@ export function Work() {
   const featured = projects.find((p) => p.featured)!;
   const rest = projects.filter((p) => !p.featured && (filter === "All" || p.category === filter));
   return (
-    <section id="work" className="mx-auto max-w-6xl px-6 py-28">
+    <section id="work" className="mx-auto max-w-7xl px-6 py-16">
       <SectionTitle
         eyebrow="01 — Work"
         title="Things I've built"
@@ -239,7 +282,7 @@ export function Work() {
       />
       <FeaturedProject p={featured} />
 
-      <div className="mt-16 mb-8 flex flex-wrap items-center gap-2">
+      <div className="mt-10 mb-6 flex flex-wrap items-center gap-2">
         {filters.map((f) => (
           <button
             key={f}
@@ -255,7 +298,7 @@ export function Work() {
         ))}
       </div>
 
-      <motion.div layout className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <motion.div layout className="grid gap-6 md:grid-cols-2">
         <AnimatePresence mode="popLayout">
           {rest.map((p, i) => (
             <motion.div
@@ -300,7 +343,7 @@ export function Work() {
 
 export function BuiltWithClaude() {
   return (
-    <section id="claude" className="mx-auto max-w-6xl px-6 py-28">
+    <section id="claude" className="mx-auto max-w-7xl px-6 py-16">
       <SectionTitle
         eyebrow="02 — Building with Claude"
         title="AI-assisted, human-owned"
@@ -317,14 +360,16 @@ export function BuiltWithClaude() {
                 <i className="h-2.5 w-2.5 rounded-full bg-green-400/70" />
               </span>
             </div>
-            <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-relaxed text-zinc-300">
+            <pre className="overflow-x-auto p-6 sm:p-8 font-mono text-[13px] leading-relaxed text-zinc-300">
               <span className="text-violet-400">$</span> claude{"\n"}
               <span className="text-zinc-500">&gt; plan → build → audit → ship</span>
               {"\n\n"}
               <span className="text-emerald-400">✓</span> ZestBill desktop app{"\n"}
               <span className="text-emerald-400">✓</span> zestbill.in marketing site{"\n"}
               <span className="text-emerald-400">✓</span> Code audits &amp; cleanups{"\n"}
-              <span className="text-emerald-400">✓</span> This portfolio
+              <span className="text-emerald-400">✓</span> This portfolio{"\n\n"}
+              <span className="text-zinc-500">&gt; you review, you merge, you ship</span>{"\n"}
+              <span className="text-violet-400">$</span> <span className="animate-pulse">▍</span>
             </pre>
           </SpotlightCard>
         </Reveal>
@@ -346,7 +391,7 @@ export function BuiltWithClaude() {
 
 export function About() {
   return (
-    <section id="about" className="mx-auto max-w-6xl px-6 py-20">
+    <section id="about" className="mx-auto max-w-7xl px-6 py-14">
       <div className="grid items-center gap-10 lg:grid-cols-5">
         <Reveal className="lg:col-span-3">
           <p className="font-mono text-sm text-violet-400">03 — About</p>
@@ -376,12 +421,12 @@ export function About() {
 export function Skills() {
   const all = Object.values(skills).flat();
   return (
-    <section id="skills" className="mx-auto max-w-6xl px-6 py-24">
+    <section id="skills" className="mx-auto max-w-7xl px-6 py-16">
       <SectionTitle eyebrow="04 — Toolbox" title="What I work with" />
       <Reveal className="mb-8">
         <Marquee items={all} />
       </Reveal>
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {Object.entries(skills).map(([group, items], i) => (
           <Reveal key={group} delay={i * 0.07}>
             <SpotlightCard className="h-full p-6">
@@ -403,24 +448,21 @@ export function Skills() {
 
 export function Journey() {
   return (
-    <section id="journey" className="mx-auto max-w-4xl px-6 py-24">
+    <section id="journey" className="mx-auto max-w-7xl px-6 py-16">
       <SectionTitle eyebrow="05 — Journey" title="Where I've shipped" />
-      <div className="divide-y divide-white/10 rounded-2xl border border-white/10 bg-white/[0.03]">
+      <div className="grid gap-5 md:grid-cols-3">
         {journey.map((j, i) => (
-          <Reveal key={j.role + j.period} delay={i * 0.05}>
-            <div className="grid gap-2 p-6 sm:grid-cols-[140px_1fr]">
+          <Reveal key={j.role + j.period} delay={i * 0.07}>
+            <SpotlightCard className="h-full p-6">
               <span className="font-mono text-sm text-cyan-300">{j.period}</span>
-              <div>
-                <h3 className="font-medium">
-                  {j.role} <span className="text-violet-300">· {j.company}</span>
-                </h3>
-                <p className="mt-1 text-sm text-zinc-400">{j.note}</p>
-              </div>
-            </div>
+              <h3 className="mt-2 text-lg font-medium">{j.role}</h3>
+              <p className="text-violet-300">{j.company}</p>
+              <p className="mt-3 text-sm leading-relaxed text-zinc-400">{j.note}</p>
+            </SpotlightCard>
           </Reveal>
         ))}
       </div>
-      <p className="mt-4 text-sm text-zinc-500">
+      <p className="mt-5 text-sm text-zinc-500">
         Want the full details?{" "}
         <a href={profile.resume} target="_blank" rel="noopener noreferrer" className="text-violet-300 underline-offset-4 hover:underline">
           Open my resume
@@ -433,9 +475,9 @@ export function Journey() {
 
 export function Contact() {
   return (
-    <section id="contact" className="mx-auto max-w-4xl px-6 py-28">
+    <section id="contact" className="mx-auto max-w-5xl px-6 py-16">
       <Reveal>
-        <SpotlightCard className="p-10 text-center sm:p-16">
+        <SpotlightCard className="p-8 text-center sm:p-12">
           <p className="font-mono text-sm text-violet-400">06 — Contact</p>
           <h2 className="gradient-text mt-3 text-4xl font-semibold tracking-tight sm:text-6xl">
             Ready to build something?
