@@ -8,11 +8,11 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/mohammad-yaseen-shaik",
   resume: "/Shaik_Mohammad_Yaseen_Resume.pdf",
   summary:
-    "Full Stack Software Engineer with 4+ years of experience building enterprise and healthcare applications. Strong experience with React.js, Next.js, JavaScript, TypeScript, Node.js and REST APIs, with hands-on work in state management, performance optimization, secure healthcare workflows and CI/CD. Experienced in building reusable UI components, integrating backend services and delivering production features in Agile teams.",
+    "Full Stack Software Engineer with 5 years of experience building enterprise and healthcare applications. Strong experience with React.js, Next.js, JavaScript, TypeScript, Node.js and REST APIs, with hands-on work in state management, performance optimization, secure healthcare workflows and CI/CD. Experienced in building reusable UI components, integrating backend services and delivering production features in Agile teams.",
 };
 
 export const stats = [
-  { value: 4, suffix: "+", label: "Years of experience" },
+  { value: 5, suffix: "", label: "Years of experience" },
   { value: 4, suffix: "", label: "Projects featured" },
   { value: 2, suffix: "", label: "Companies worked at" },
 ];
@@ -47,7 +47,10 @@ export const projects: Project[] = [
     stack: ["Windows desktop", "Offline-first", "Local database"],
     links: [
       { label: "Visit zestbill.in", href: "https://zestbill.in" },
-      { label: "Releases", href: "https://github.com/yaseenShaik1432/zestbill-releases/releases" },
+      {
+        label: "Releases",
+        href: "https://github.com/yaseenShaik1432/zestbill-releases/releases",
+      },
     ],
   },
   {
@@ -64,7 +67,9 @@ export const projects: Project[] = [
       "Data validation and secure handling for KSA healthcare requirements",
     ],
     stack: ["React", "Dashboards", "CSV / Excel import"],
-    links: [{ label: "mytracare.com", href: "https://mytracare.com/index.html" }],
+    links: [
+      { label: "mytracare.com", href: "https://mytracare.com/index.html" },
+    ],
   },
   {
     slug: "h2h-digitalrx",
@@ -78,8 +83,20 @@ export const projects: Project[] = [
       "Application and server state with Redux Toolkit and React Query",
       "Prescription form validation with Formik and medication analytics with Recharts",
     ],
-    stack: ["React.js", "Material UI", "Redux Toolkit", "React Query", "Formik", "Recharts"],
-    links: [{ label: "info.h2hdigitalrx.com", href: "https://info.h2hdigitalrx.com/" }],
+    stack: [
+      "React.js",
+      "Material UI",
+      "Redux Toolkit",
+      "React Query",
+      "Formik",
+      "Recharts",
+    ],
+    links: [
+      {
+        label: "info.h2hdigitalrx.com",
+        href: "https://info.h2hdigitalrx.com/",
+      },
+    ],
   },
   {
     slug: "ortele-health",
@@ -114,7 +131,11 @@ export const skills: Record<string, string[]> = {
   Backend: ["Node.js", "Express.js", "RESTful APIs"],
   "Databases and cloud": ["MySQL", "MongoDB", "Firebase", "AWS (S3, EC2)"],
   "DevOps and tools": ["Docker", "Jenkins", "Git", "GitHub", "CI/CD"],
-  Practices: ["Web performance optimization", "Secure healthcare applications", "Agile/Scrum"],
+  Practices: [
+    "Web performance optimization",
+    "Secure healthcare applications",
+    "Agile/Scrum",
+  ],
 };
 
 export const journey = [
