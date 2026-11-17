@@ -1,7 +1,7 @@
 export const profile = {
   name: "Shaik Mohammad Yaseen",
   title: "Full Stack Software Engineer",
-  location: "Kadapa, Andhra Pradesh, India",
+  location: "Hyderabad, Telangana, India",
   email: "mdyaseenshaik28@gmail.com",
   phone: "+91 8501814541",
   github: "https://github.com/yaseenShaik1432",
@@ -104,13 +104,14 @@ export const projects: Project[] = [
     kind: "Youngsoft India",
     tag: "Digital telemedicine platform",
     description:
-      "A telemedicine platform connecting patients and providers through virtual consultations.",
+      "A telemedicine company that connects patients with board-certified providers from their own device, with services for health plans, provider organizations and employers.",
     work: [
       "Patient-provider communication and virtual consultation interfaces with React.js and WebRTC",
       "Clinical data visualization forms",
       "Secure digital health record features for physician workflows",
     ],
     stack: ["React.js", "WebRTC", "Data visualization"],
+    links: [{ label: "ortele.com", href: "https://www.ortele.com/" }],
   },
 ];
 
