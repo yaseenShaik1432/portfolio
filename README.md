@@ -21,16 +21,16 @@ Open http://localhost:3000.
 
 ## Deploy to Cloudflare (static export)
 
-The site is a static export (`output: "export"` in `next.config.ts`), so Cloudflare serves plain files from `out/`.
+The site is a static export (`output: "export"` in `next.config.ts`), so Cloudflare serves plain files from `out/`. It does not need the OpenNext adapter (`opennextjs-cloudflare`).
 
-Cloudflare Pages settings:
+Cloudflare Workers (static assets), configured by `wrangler.jsonc`:
 
 | Setting | Value |
 | --- | --- |
-| Framework preset | Next.js (Static HTML Export) |
 | Build command | `npx next build` |
-| Build output directory | `out` |
-| Production branch | `main` |
-| Environment variable | `NEXT_PUBLIC_SITE_URL` = your final site URL, for example `https://yourname.pages.dev` |
+| Deploy command | `npx wrangler deploy` |
+| Environment variable | `NEXT_PUBLIC_SITE_URL` = your final site URL, for example `https://portfolio.yourname.workers.dev` |
+
+Cloudflare Pages also works: preset "Next.js (Static HTML Export)", build command `npx next build`, output directory `out`.
 
 `public/_headers` sets security and caching headers, and `.node-version` pins Node 22.
