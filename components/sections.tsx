@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowUpRight, Download, Mail, MapPin } from "lucide-react";
+import { ArrowUpRight, Download, Mail, MapPin, Phone } from "lucide-react";
 import { Card, CountUp } from "./effects";
 import {
   journey,
@@ -95,6 +95,16 @@ export function Hero() {
         className="break-all text-accent underline underline-offset-4"
       >
         {profile.email}
+      </a>,
+    ],
+    [
+      "Phone",
+      <a
+        key="phone"
+        href={`tel:${profile.phone.replace(/\s/g, "")}`}
+        className="text-accent underline underline-offset-4"
+      >
+        {profile.phone}
       </a>,
     ],
   ] as [string, React.ReactNode][];
@@ -415,6 +425,12 @@ export function Contact() {
             className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-medium text-navy hover:bg-mint"
           >
             <Mail className="h-4 w-4" /> {profile.email}
+          </a>
+          <a
+            href={`tel:${profile.phone.replace(/\s/g, "")}`}
+            className="inline-flex items-center gap-2 rounded-lg border border-navy-line px-6 py-3 text-sm font-medium hover:border-on-navy"
+          >
+            <Phone className="h-4 w-4" /> {profile.phone}
           </a>
           {[
             ["LinkedIn", profile.linkedin, Linkedin],

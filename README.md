@@ -19,6 +19,18 @@ Open http://localhost:3000.
 - The ZestBill screenshot is `public/zestbill-dashboard.webp`.
 - The social preview image is generated in `app/opengraph-image.tsx`; the favicon is `app/icon.svg`.
 
-## Deploy
+## Deploy to Cloudflare (static export)
 
-Import the repo in Vercel. Set `metadataBase` in `app/layout.tsx` to your production domain so social previews use the right URL.
+The site is a static export (`output: "export"` in `next.config.ts`), so Cloudflare serves plain files from `out/`.
+
+Cloudflare Pages settings:
+
+| Setting | Value |
+| --- | --- |
+| Framework preset | Next.js (Static HTML Export) |
+| Build command | `npx next build` |
+| Build output directory | `out` |
+| Production branch | `main` |
+| Environment variable | `NEXT_PUBLIC_SITE_URL` = your final site URL, for example `https://yourname.pages.dev` |
+
+`public/_headers` sets security and caching headers, and `.node-version` pins Node 22.
