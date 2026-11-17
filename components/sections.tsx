@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { ArrowUpRight, Download, Mail, MapPin } from "lucide-react";
 import { Card, CountUp } from "./effects";
 import { journey, profile, projects, skills, stats, type Project } from "@/lib/data";
@@ -61,7 +60,7 @@ export function Hero() {
   const facts = [
     ["Now", "Custom Software Engineering Analyst at Accenture, Hyderabad"],
     ["Product", "ZestBill, a GST billing app for Windows (zestbill.in)"],
-    ["Stack", "React.js, Next.js, Angular 17 and Node.js"],
+    ["Stack", "React.js, Next.js, TypeScript and Node.js"],
     ["Based in", profile.location],
   ];
   return (
@@ -74,8 +73,8 @@ export function Hero() {
           Full stack engineer with 4+ years of experience building web applications.
         </h1>
         <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
-          I&apos;m {profile.name}. I build enterprise applications and secure healthcare platforms with React, Next.js,
-          Angular and Node.js.
+          I&apos;m {profile.name}. I build enterprise and healthcare applications with React, Next.js, TypeScript and
+          Node.js.
         </p>
         <div className="mt-9 flex flex-wrap gap-3">
           <a href="#work" className={btnPrimary}>
@@ -177,13 +176,13 @@ function FeaturedProject({ p }: { p: Project }) {
         </div>
         <div className="flex flex-col p-8 sm:p-10">
           <div className="flex flex-wrap items-center gap-3 text-sm text-on-navy-muted">
-            <span>Featured product</span>
+            <span>{p.kind}</span>
           </div>
           <h3 className="mt-4 font-serif text-4xl font-semibold tracking-tight">{p.name}</h3>
           <p className="mt-1 text-mint">{p.tag}</p>
           <p className="mt-5 leading-relaxed text-on-navy-muted">{p.description}</p>
           <ul className="mt-6 space-y-2.5 text-sm">
-            {p.highlights.map((h) => (
+            {p.work.map((h) => (
               <li key={h} className="flex gap-2.5">
                 <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-mint" />
                 {h}
@@ -220,54 +219,52 @@ function FeaturedProject({ p }: { p: Project }) {
   );
 }
 
-const filters = ["All", "Healthcare", "Enterprise"] as const;
-
 export function Work() {
-  const [filter, setFilter] = useState<(typeof filters)[number]>("All");
   const featured = projects.find((p) => p.featured)!;
-  const rest = projects.filter((p) => !p.featured && (filter === "All" || p.category === filter));
+  const rest = projects.filter((p) => !p.featured);
   return (
     <section id="work" className="mx-auto max-w-7xl px-6 py-16">
-      <SectionTitle title="Selected work" sub="A featured product, followed by healthcare and enterprise platforms from my career." />
+      <SectionTitle title="Selected work" sub="My own product, a client project, and healthcare platforms I worked on at Youngsoft India." />
       <FeaturedProject p={featured} />
 
-      <div className="mt-12 mb-6 flex flex-wrap items-center gap-2" role="group" aria-label="Filter projects">
-        {filters.map((f) => (
-          <button
-            key={f}
-            onClick={() => setFilter(f)}
-            aria-pressed={filter === f}
-            className={`rounded-full border px-4 py-1.5 text-sm transition-colors ${
-              filter === f ? "border-ink bg-ink text-white" : "border-line bg-surface text-muted hover:text-ink"
-            }`}
-          >
-            {f}
-          </button>
-        ))}
-      </div>
-
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="mt-8 grid gap-6 md:grid-cols-3">
         {rest.map((p) => (
           <Card key={p.slug} className="flex flex-col p-7">
-            <p className="text-sm text-accent">{p.category}</p>
+            <p className="text-sm text-accent">{p.kind}</p>
             <h3 className="mt-1 font-serif text-2xl font-semibold">{p.name}</h3>
             <p className="text-muted">{p.tag}</p>
             <p className="mt-4 leading-relaxed text-ink/80">{p.description}</p>
-            <ul className="mt-4 space-y-2 text-sm">
-              {p.highlights.map((h) => (
+            <h4 className="mt-5 text-sm font-semibold">What I worked on</h4>
+            <ul className="mt-2 space-y-2 text-sm">
+              {p.work.map((h) => (
                 <li key={h} className="flex gap-2.5">
                   <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
                   {h}
                 </li>
               ))}
             </ul>
-            <div className="mt-auto flex flex-wrap gap-2 pt-6">
+            <div className="mt-5 flex flex-wrap gap-2">
               {p.stack.map((s) => (
                 <span key={s} className="rounded-full bg-paper px-3 py-1 text-xs text-muted">
                   {s}
                 </span>
               ))}
             </div>
+            {p.links && (
+              <div className="mt-auto pt-6">
+                {p.links.map((l) => (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-accent underline-offset-4 hover:underline"
+                  >
+                    {l.label} <ArrowUpRight className="h-4 w-4" />
+                  </a>
+                ))}
+              </div>
+            )}
           </Card>
         ))}
       </div>
@@ -286,7 +283,7 @@ export function About() {
             <MapPin className="h-4 w-4 text-accent" /> {profile.location}
           </p>
         </div>
-        <dl className="grid grid-cols-2 gap-4 lg:col-span-2">
+        <dl className="grid grid-cols-3 gap-4 lg:col-span-2">
           {stats.map((s) => (
             <Card key={s.label} className="p-5">
               <dd className="font-serif text-4xl font-semibold text-accent">
@@ -305,10 +302,10 @@ export function Skills() {
   return (
     <section id="skills" className="mx-auto max-w-7xl px-6 py-16">
       <SectionTitle title="Skills" />
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <Card className="divide-y divide-line">
         {Object.entries(skills).map(([group, items]) => (
-          <Card key={group} className="p-6">
-            <h3 className="mb-4 font-semibold">{group}</h3>
+          <div key={group} className="grid gap-3 p-6 sm:grid-cols-[220px_1fr] sm:items-baseline">
+            <h3 className="font-semibold">{group}</h3>
             <ul className="flex flex-wrap gap-2">
               {items.map((s) => (
                 <li key={s} className="rounded-md bg-paper px-2.5 py-1 text-sm text-ink/80">
@@ -316,9 +313,9 @@ export function Skills() {
                 </li>
               ))}
             </ul>
-          </Card>
+          </div>
         ))}
-      </div>
+      </Card>
     </section>
   );
 }

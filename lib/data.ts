@@ -5,28 +5,25 @@ export const profile = {
   email: "mdyaseenshaik28@gmail.com",
   phone: "+91 8501814541",
   github: "https://github.com/yaseenShaik1432",
-  // NOTE: the resume text extracts as "mohammad-yaseen" + an unreadable character + "shaik".
-  // This is the most likely slug (hyphen between the two words). Change it here if it differs.
   linkedin: "https://www.linkedin.com/in/mohammad-yaseen-shaik",
   resume: "/Shaik_Mohammad_Yaseen_Resume.pdf",
   summary:
-    "Results-driven Full Stack Software Engineer with 4+ years of experience architecting and delivering high-performance enterprise applications and secure healthcare platforms. Proficient in React.js, Next.js, Angular 17, Node.js and micro-frontend architectures.",
+    "Full Stack Software Engineer with 4+ years of experience building enterprise and healthcare applications. Strong experience with React.js, Next.js, JavaScript, TypeScript, Node.js and REST APIs, with hands-on work in state management, performance optimization, secure healthcare workflows and CI/CD. Experienced in building reusable UI components, integrating backend services and delivering production features in Agile teams.",
 };
 
 export const stats = [
   { value: 4, suffix: "+", label: "Years of experience" },
-  { value: 80, suffix: "%", label: "Faster build and deployment" },
-  { value: 30, suffix: "%", label: "Better rendering performance" },
-  { value: 100, suffix: "%", label: "HIPAA audit pass rate" },
+  { value: 4, suffix: "", label: "Projects featured" },
+  { value: 2, suffix: "", label: "Companies worked at" },
 ];
 
 export type Project = {
   slug: string;
   name: string;
+  kind: string;
   tag: string;
-  category: "Product" | "Healthcare" | "Enterprise";
   description: string;
-  highlights: string[];
+  work: string[];
   stack: string[];
   featured?: boolean;
   links?: { label: string; href: string }[];
@@ -36,12 +33,12 @@ export const projects: Project[] = [
   {
     slug: "zestbill",
     name: "ZestBill",
+    kind: "Personal product",
     tag: "GST billing for small businesses",
-    category: "Product",
     featured: true,
     description:
       "A Windows desktop app for small businesses that handles GST invoices, payment tracking, stock and reports. It works offline, with a local database on the user's PC.",
-    highlights: [
+    work: [
       "GST tax invoices with HSN/SAC, CGST + SGST or IGST, and financial-year numbering",
       "Works offline, with daily backups and an optional PIN lock",
       "A4 and 58/80 mm thermal printing, PDF export, UPI QR codes and WhatsApp sharing",
@@ -56,54 +53,47 @@ export const projects: Project[] = [
   {
     slug: "tracare",
     name: "TraCare",
-    tag: "Patient & staff tracking platform",
-    category: "Healthcare",
+    kind: "Client project",
+    tag: "Health information system for clinics",
     description:
-      "A full-scale tracking system architected and built end-to-end in a 4-month deadline: real-time patient status, automated staff scheduling and bulk CSV/Excel uploads.",
-    highlights: [
-      "100% compliance with KSA healthcare data and privacy regulations",
-      "Interactive dashboards sped up admin decisions by 35%",
+      "A cloud-based health information system for clinics and polyclinics, covering patient management from registration through treatment, including e-prescriptions, insurance claims and Saudi e-invoicing.",
+    work: [
+      "Patient status tracking and staff scheduling",
+      "Bulk CSV/Excel data upload",
+      "Dashboards with interactive metrics for administrators",
+      "Data validation and secure handling for KSA healthcare requirements",
     ],
-    stack: ["React", "Dashboards", "CSV / Excel import", "Encryption"],
+    stack: ["React", "Dashboards", "CSV / Excel import"],
+    links: [{ label: "mytracare.com", href: "https://mytracare.com/index.html" }],
   },
   {
     slug: "h2h-digitalrx",
     name: "H2H DigitalRx",
-    tag: "E-prescribing web application",
-    category: "Healthcare",
+    kind: "Youngsoft India",
+    tag: "E-prescribing platform",
     description:
-      "Frontend architecture built from scratch with React.js and Material-UI, giving physicians and medical staff a secure prescription workflow.",
-    highlights: [
-      "HIPAA-grade privacy and encryption protecting PHI",
-      "30% faster rendering through Redux + React Query state design",
+      "A cloud-based, Surescripts-certified e-prescribing platform from H2H Solutions for prescribers and practices, with a stand-alone login for prescribers who don't use an EMR.",
+    work: [
+      "Frontend architecture with React.js and Material UI for physician prescription workflows",
+      "Application and server state with Redux Toolkit and React Query",
+      "Prescription form validation with Formik and medication analytics with Recharts",
     ],
-    stack: ["React.js", "Material-UI", "Redux", "React Query", "Formik", "Recharts"],
+    stack: ["React.js", "Material UI", "Redux Toolkit", "React Query", "Formik", "Recharts"],
+    links: [{ label: "info.h2hdigitalrx.com", href: "https://info.h2hdigitalrx.com/" }],
   },
   {
     slug: "ortele-health",
     name: "Ortele Health",
+    kind: "Youngsoft India",
     tag: "Digital telemedicine platform",
-    category: "Healthcare",
     description:
-      "Patient–provider communication and virtual consultation interfaces on React.js and WebRTC, with secure digital health records.",
-    highlights: [
-      "Clinical data visualization forms improved workflow efficiency by 25%",
-      "Health records informed decisions in 90% of user interactions",
+      "A telemedicine platform connecting patients and providers through virtual consultations.",
+    work: [
+      "Patient-provider communication and virtual consultation interfaces with React.js and WebRTC",
+      "Clinical data visualization forms",
+      "Secure digital health record features for physician workflows",
     ],
     stack: ["React.js", "WebRTC", "Data visualization"],
-  },
-  {
-    slug: "angular-microfrontends",
-    name: "Enterprise Micro-frontends",
-    tag: "Angular 17 design system & modules",
-    category: "Enterprise",
-    description:
-      "Scalable micro-frontend UI modules for mission-critical client applications at Accenture, backed by a reusable design system and optimized build configuration.",
-    highlights: [
-      "Build and deployment time cut by 80%",
-      "Frontend best practices set with principal architects",
-    ],
-    stack: ["Angular 17", "Micro-frontends", "Design system", "CI/CD"],
   },
 ];
 
@@ -111,40 +101,39 @@ export const skills: Record<string, string[]> = {
   Frontend: [
     "React.js",
     "Next.js",
-    "Angular 17",
-    "TypeScript",
     "JavaScript (ES6+)",
+    "TypeScript",
     "Redux Toolkit",
     "React Query",
     "HTML5",
     "CSS3",
     "Tailwind CSS",
-    "Material-UI",
+    "Material UI",
     "Ant Design",
-    "Bootstrap",
   ],
-  "Backend and architecture": ["Node.js", "Express.js", "RESTful APIs", "Microservices", "Micro-frontend architecture"],
-  "Databases and cloud": ["MySQL", "MongoDB", "Firebase", "AWS (S3, EC2)", "Docker", "Jenkins", "Git/GitHub", "CI/CD pipelines"],
-  "Core practices": ["HIPAA and regulatory compliance", "Web performance optimization", "System architecture", "Agile/Scrum"],
+  Backend: ["Node.js", "Express.js", "RESTful APIs"],
+  "Databases and cloud": ["MySQL", "MongoDB", "Firebase", "AWS (S3, EC2)"],
+  "DevOps and tools": ["Docker", "Jenkins", "Git", "GitHub", "CI/CD"],
+  Practices: ["Web performance optimization", "Secure healthcare applications", "Agile/Scrum"],
 };
 
 export const journey = [
   {
     role: "Custom Software Engineering Analyst",
     company: "Accenture",
-    period: "2025 — Now",
-    note: "Angular 17 micro-frontends for mission-critical client apps; design systems; 80% faster builds.",
+    period: "Jan 2025 – Present",
+    note: "Enterprise frontend modules and reusable UI solutions for mission-critical client applications; design systems and build configuration improvements.",
   },
   {
     role: "Software Engineer",
     company: "Youngsoft India",
-    period: "2022 — 2025",
-    note: "React & Next.js healthcare platforms; HIPAA-compliant telehealth; 100% audit pass rate.",
+    period: "Jul 2022 – Jan 2025",
+    note: "Healthcare applications in React.js and Next.js, with secure workflows and HIPAA-related privacy and security requirements across telehealth modules.",
   },
   {
     role: "Software Engineer Intern",
     company: "Youngsoft India",
-    period: "2022",
-    note: "Led 4 interns on Liferay portlets; delivered 2 months early.",
+    period: "Feb 2022 – Jun 2022",
+    note: "Led a team of 4 interns building modular enterprise portlets with Liferay and JSP.",
   },
 ];
