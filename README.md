@@ -1,10 +1,8 @@
-# Portfolio — Shaik Mohammad Yaseen
+# Portfolio: Shaik Mohammad Yaseen
 
-A dark, animated personal portfolio built with **Next.js (App Router)**, **Tailwind CSS** and **Framer Motion**.
+Personal portfolio built with Next.js (App Router), Tailwind CSS and Framer Motion's `useInView` for the stat counters.
 
-UI ideas borrowed from reactbits.dev (blur text, spotlight cards, aurora background, magnetic buttons, marquee), unsloth.ai (clean dark layout, stat counters) and motionsites.ai (cinematic hero, scroll reveals).
-
-## Getting started
+## Run locally
 
 ```bash
 npm install
@@ -13,11 +11,14 @@ npm run dev
 
 Open http://localhost:3000.
 
-## Edit your content
+## Edit content
 
-All text lives in `lib/data.ts` (profile, skills, experience, projects).
-Put your resume PDF at `public/Shaik_Mohammad_Yaseen_Resume.pdf` so the Resume button works.
+- All text, projects, skills and experience live in `lib/data.ts`.
+- Page sections live in `components/sections.tsx`.
+- Replace the resume by overwriting `public/Shaik_Mohammad_Yaseen_Resume.pdf`.
+- The ZestBill screenshot is `public/zestbill-dashboard.webp`.
+- The social preview image is generated in `app/opengraph-image.tsx`; the favicon is `app/icon.svg`.
 
 ## Deploy
 
-Push to GitHub and import the repo in Vercel.
+Import the repo in Vercel. Set `metadataBase` in `app/layout.tsx` to your production domain so social previews use the right URL.

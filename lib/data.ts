@@ -130,8 +130,9 @@ export const skills: Record<string, string[]> = {
     "Ant Design",
   ],
   Backend: ["Node.js", "Express.js", "RESTful APIs"],
-  "Databases and cloud": ["MySQL", "MongoDB", "Firebase", "AWS (S3, EC2)"],
-  "DevOps and tools": ["Docker", "Jenkins", "Git", "GitHub", "CI/CD"],
+  "Databases and Cloud": ["MySQL", "MongoDB", "Firebase", "AWS (S3, EC2)"],
+  "DevOps and Tools": ["Docker", "Jenkins", "Git", "GitHub", "CI/CD"],
+  "AI Tools": ["Claude Code", "Codex", "ChatGPT"],
   Practices: [
     "Web performance optimization",
     "Secure healthcare applications",

@@ -40,9 +40,9 @@ function Linkedin({ className }: { className?: string }) {
 
 const nav = [
   ["Work", "#work"],
-  ["About", "#about"],
-  ["Skills", "#skills"],
   ["Experience", "#experience"],
+  ["Skills", "#skills"],
+  ["About", "#about"],
 ];
 
 const btnPrimary =
@@ -85,19 +85,30 @@ export function Hero() {
     ["Now", "Custom Software Engineering Analyst at Accenture, Hyderabad"],
     ["Product", "ZestBill, a GST billing app for Windows (zestbill.in)"],
     ["Stack", "React.js, Next.js, TypeScript and Node.js"],
+    ["AI tools", "Claude Code, Codex and ChatGPT"],
     ["Based in", profile.location],
-  ];
+    [
+      "Email",
+      <a
+        key="email"
+        href={`mailto:${profile.email}`}
+        className="break-all text-accent underline underline-offset-4"
+      >
+        {profile.email}
+      </a>,
+    ],
+  ] as [string, React.ReactNode][];
   return (
     <section
       id="top"
       className="mx-auto grid max-w-7xl items-center gap-12 px-6 pt-16 pb-20 lg:grid-cols-5 lg:pt-24 lg:pb-24"
     >
       <div className="hero-in lg:col-span-3">
-        <p className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3.5 py-1.5 text-sm text-muted">
-          <span className="h-2 w-2 rounded-full bg-accent" /> Open to full-time
-          roles and freelance work
+        <p className="inline-flex items-start gap-2 rounded-2xl border border-line bg-surface px-3.5 py-2 text-sm text-ink sm:items-center sm:rounded-full">
+          <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-accent sm:mt-0" />{" "}
+          Excited to join as an AI-enabled full stack software engineer
         </p>
-        <h1 className="mt-6 font-serif text-5xl leading-[1.08] font-semibold tracking-tight text-balance sm:text-6xl">
+        <h1 className="mt-6 font-serif text-4xl leading-[1.1] font-semibold tracking-tight text-balance sm:text-6xl">
           Full stack engineer with 5 years of experience building web
           applications.
         </h1>
@@ -212,18 +223,23 @@ function FeaturedProject({ p }: { p: Project }) {
         </div>
       </div>
       <figure className="border-t border-navy-line bg-[#0a1524] px-4 pt-8 pb-6 sm:px-10">
-        <div className="mx-auto max-w-5xl overflow-hidden rounded-lg border border-navy-line shadow-[0_30px_60px_-20px_rgba(0,0,0,0.7)]">
+        <div
+          tabIndex={0}
+          role="region"
+          aria-label="ZestBill dashboard screenshot"
+          className="mx-auto max-w-5xl overflow-x-auto rounded-lg border border-navy-line shadow-[0_30px_60px_-20px_rgba(0,0,0,0.7)] sm:overflow-hidden"
+        >
           <Image
             src="/zestbill-dashboard.webp"
             alt="ZestBill dashboard showing today's sales, amounts to collect, a 14-day sales chart, outstanding dues and recent invoices"
             width={1600}
             height={900}
             sizes="(min-width: 1280px) 1024px, 100vw"
-            className="h-auto w-full"
+            className="h-auto w-full min-w-[720px] sm:min-w-0"
           />
         </div>
         <figcaption className="mt-3 text-center text-xs text-on-navy-muted">
-          ZestBill dashboard, shown with sample data
+          ZestBill dashboard, shown with sample data<span className="sm:hidden"> (scroll sideways to see more)</span>
         </figcaption>
       </figure>
     </article>
