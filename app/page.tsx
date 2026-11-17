@@ -1,7 +1,6 @@
 import { ScrollProgress } from "@/components/effects";
 import {
   About,
-  BuiltWithClaude,
   Contact,
   Footer,
   Hero,
@@ -19,7 +18,6 @@ export default function Home() {
       <main>
         <Hero />
         <Work />
-        <BuiltWithClaude />
         <About />
         <Skills />
         <Journey />

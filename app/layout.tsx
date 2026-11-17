@@ -7,10 +7,10 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Shaik Mohammad Yaseen — Full Stack Software Engineer",
   description:
-    "Full stack engineer building billing software, healthcare platforms and enterprise interfaces. Creator of ZestBill.",
+    "Full stack software engineer with 4+ years of experience in React, Next.js, Angular and Node.js.",
   openGraph: {
     title: "Shaik Mohammad Yaseen — Full Stack Software Engineer",
-    description: "Billing software, healthcare platforms and enterprise interfaces.",
+    description: "Full stack engineer: enterprise applications and healthcare platforms.",
     type: "website",
   },
 };

@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRight, Download, Mail, MapPin, Sparkles } from "lucide-react";
+import { ArrowUpRight, Download, Mail, MapPin } from "lucide-react";
 import { Card, CountUp } from "./effects";
-import { claudeWorkflow, journey, profile, projects, skills, stats, type Project } from "@/lib/data";
+import { journey, profile, projects, skills, stats, type Project } from "@/lib/data";
 
 function Github({ className }: { className?: string }) {
   return (
@@ -23,7 +23,6 @@ function Linkedin({ className }: { className?: string }) {
 
 const nav = [
   ["Work", "#work"],
-  ["Claude", "#claude"],
   ["About", "#about"],
   ["Skills", "#skills"],
   ["Experience", "#experience"],
@@ -61,22 +60,22 @@ export function Navbar() {
 export function Hero() {
   const facts = [
     ["Now", "Custom Software Engineering Analyst at Accenture, Hyderabad"],
-    ["Shipped", "ZestBill, GST billing software live at zestbill.in"],
-    ["Focus", "Angular, React, Next.js and Node.js"],
+    ["Product", "ZestBill, a GST billing app for Windows (zestbill.in)"],
+    ["Stack", "React.js, Next.js, Angular 17 and Node.js"],
     ["Based in", profile.location],
   ];
   return (
     <section id="top" className="mx-auto grid max-w-7xl items-center gap-12 px-6 pt-16 pb-20 lg:grid-cols-5 lg:pt-24 lg:pb-24">
       <div className="hero-in lg:col-span-3">
         <p className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3.5 py-1.5 text-sm text-muted">
-          <span className="h-2 w-2 rounded-full bg-accent" /> Open to full-time roles and freelance projects
+          <span className="h-2 w-2 rounded-full bg-accent" /> Open to full-time roles and freelance work
         </p>
         <h1 className="mt-6 font-serif text-5xl leading-[1.08] font-semibold tracking-tight text-balance sm:text-6xl">
-          Full stack engineer building billing software, healthcare platforms and enterprise interfaces.
+          Full stack engineer with 4+ years of experience building web applications.
         </h1>
         <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
-          I&apos;m {profile.name}. I have 4+ years of experience taking products from first commit to real users,
-          including ZestBill, which I designed and built end to end with Claude.
+          I&apos;m {profile.name}. I build enterprise applications and secure healthcare platforms with React, Next.js,
+          Angular and Node.js.
         </p>
         <div className="mt-9 flex flex-wrap gap-3">
           <a href="#work" className={btnPrimary}>
@@ -114,18 +113,6 @@ function SectionTitle({ title, sub }: { title: string; sub?: string }) {
       <h2 className="font-serif text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h2>
       {sub && <p className="mt-3 text-lg leading-relaxed text-muted">{sub}</p>}
     </div>
-  );
-}
-
-function ClaudeBadge({ dark = false }: { dark?: boolean }) {
-  return (
-    <span
-      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium ${
-        dark ? "bg-white/10 text-on-navy" : "bg-accent-soft text-accent"
-      }`}
-    >
-      <Sparkles className="h-3.5 w-3.5" /> Built with Claude
-    </span>
   );
 }
 
@@ -191,7 +178,6 @@ function FeaturedProject({ p }: { p: Project }) {
         <div className="flex flex-col p-8 sm:p-10">
           <div className="flex flex-wrap items-center gap-3 text-sm text-on-navy-muted">
             <span>Featured product</span>
-            {p.builtWithClaude && <ClaudeBadge dark />}
           </div>
           <h3 className="mt-4 font-serif text-4xl font-semibold tracking-tight">{p.name}</h3>
           <p className="mt-1 text-mint">{p.tag}</p>
@@ -242,7 +228,7 @@ export function Work() {
   const rest = projects.filter((p) => !p.featured && (filter === "All" || p.category === filter));
   return (
     <section id="work" className="mx-auto max-w-7xl px-6 py-16">
-      <SectionTitle title="Selected work" sub="A product I built and shipped myself, and the platforms I've built for healthcare and enterprise clients." />
+      <SectionTitle title="Selected work" sub="A featured product, followed by healthcare and enterprise platforms from my career." />
       <FeaturedProject p={featured} />
 
       <div className="mt-12 mb-6 flex flex-wrap items-center gap-2" role="group" aria-label="Filter projects">
@@ -285,28 +271,6 @@ export function Work() {
           </Card>
         ))}
       </div>
-    </section>
-  );
-}
-
-export function BuiltWithClaude() {
-  return (
-    <section id="claude" className="mx-auto max-w-7xl px-6 py-16">
-      <SectionTitle
-        title="How I build with Claude"
-        sub="Claude speeds up planning, building and auditing. I make every decision and merge every change myself."
-      />
-      <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {claudeWorkflow.map((s) => (
-          <li key={s.n}>
-            <Card className="h-full p-6">
-              <span className="font-serif text-3xl font-semibold text-accent/70">{s.n}</span>
-              <h3 className="mt-3 text-lg font-semibold">{s.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{s.text}</p>
-            </Card>
-          </li>
-        ))}
-      </ol>
     </section>
   );
 }
@@ -390,10 +354,10 @@ export function Contact() {
     <section id="contact" className="mx-auto max-w-7xl px-6 pt-8 pb-16">
       <div className="on-navy rounded-2xl bg-navy px-8 py-14 text-center text-on-navy sm:px-14">
         <h2 className="mx-auto max-w-2xl font-serif text-3xl font-semibold tracking-tight text-balance sm:text-5xl">
-          Hiring, or have a product to build?
+          Hiring, or have a project in mind?
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-lg text-on-navy-muted">
-          Email me with a few lines about the role or project and I&apos;ll reply with how I can help.
+          Send me a few lines about the role or project and I&apos;ll get back to you.
         </p>
         <div className="mt-9 flex flex-wrap justify-center gap-3">
           <a href={`mailto:${profile.email}`} className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-medium text-navy hover:bg-mint">
@@ -428,7 +392,7 @@ export function Contact() {
 export function Footer() {
   return (
     <footer className="border-t border-line px-6 py-8 text-center text-sm text-muted">
-      © 2026 {profile.name}. Built with Next.js, Tailwind CSS and Claude.
+      © 2026 {profile.name}. Built with Next.js and Tailwind CSS.
     </footer>
   );
 }
