@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { ArrowUpRight, Download, Mail, MapPin } from "lucide-react";
 import { Card, CountUp } from "./effects";
 import { journey, profile, projects, skills, stats, type Project } from "@/lib/data";
@@ -115,87 +116,15 @@ function SectionTitle({ title, sub }: { title: string; sub?: string }) {
   );
 }
 
-function InvoiceMock() {
-  const rows = [
-    ["Wireless keypad", "8471", "2", "1,200"],
-    ["USB cable 1m", "8544", "5", "750"],
-    ["Thermal roll 80mm", "4811", "10", "1,500"],
-  ];
-  return (
-    <div className="relative flex h-full min-h-[320px] items-center justify-center p-6 sm:p-10">
-      <div className="w-full max-w-md rounded-lg bg-white p-6 text-ink shadow-[0_30px_60px_-20px_rgba(0,0,0,0.6)]">
-        <div className="flex items-center justify-between border-b border-line pb-4">
-          <div className="flex items-center gap-2.5">
-            <span className="grid h-8 w-8 place-items-center rounded-md bg-accent font-serif text-base font-semibold text-white">Z</span>
-            <span className="font-serif text-lg font-semibold">ZestBill</span>
-          </div>
-          <span className="rounded bg-accent-soft px-2 py-1 text-[11px] font-medium text-accent">Tax invoice</span>
-        </div>
-        <table className="mt-4 w-full text-left text-xs">
-          <thead className="text-muted">
-            <tr>
-              <th className="pb-2 font-medium">Item</th>
-              <th className="pb-2 font-medium">HSN</th>
-              <th className="pb-2 font-medium">Qty</th>
-              <th className="pb-2 text-right font-medium">Amount (₹)</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((r) => (
-              <tr key={r[0]} className="border-t border-line">
-                <td className="py-2">{r[0]}</td>
-                <td className="py-2 text-muted">{r[1]}</td>
-                <td className="py-2">{r[2]}</td>
-                <td className="py-2 text-right tabular-nums">{r[3]}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className="mt-2 space-y-1 border-t border-line pt-3 text-xs">
-          <div className="flex justify-between text-muted"><span>CGST</span><span className="tabular-nums">262.50</span></div>
-          <div className="flex justify-between text-muted"><span>SGST</span><span className="tabular-nums">262.50</span></div>
-          <div className="flex justify-between pt-1 text-sm font-semibold"><span>Total</span><span className="tabular-nums">₹ 3,975.00</span></div>
-        </div>
-        <div className="mt-4 flex flex-wrap gap-2 text-[11px]">
-          <span className="rounded border border-line px-2 py-1">Print A4 / 80 mm</span>
-          <span className="rounded border border-line px-2 py-1">UPI QR</span>
-          <span className="rounded bg-accent px-2 py-1 text-white">Share on WhatsApp</span>
-        </div>
-      </div>
-      <span className="absolute right-4 bottom-3 text-[11px] text-on-navy-muted">Sample data for illustration</span>
-    </div>
-  );
-}
-
 function FeaturedProject({ p }: { p: Project }) {
   return (
     <article className="on-navy overflow-hidden rounded-2xl bg-navy text-on-navy">
-      <div className="grid lg:grid-cols-2">
-        <div className="border-b border-navy-line bg-[#0a1524] lg:border-r lg:border-b-0">
-          <InvoiceMock />
-        </div>
-        <div className="flex flex-col p-8 sm:p-10">
-          <div className="flex flex-wrap items-center gap-3 text-sm text-on-navy-muted">
-            <span>{p.kind}</span>
-          </div>
-          <h3 className="mt-4 font-serif text-4xl font-semibold tracking-tight">{p.name}</h3>
+      <div className="grid gap-8 p-8 sm:p-10 lg:grid-cols-2 lg:gap-12">
+        <div className="flex flex-col">
+          <span className="text-sm text-on-navy-muted">{p.kind}</span>
+          <h3 className="mt-3 font-serif text-4xl font-semibold tracking-tight">{p.name}</h3>
           <p className="mt-1 text-mint">{p.tag}</p>
           <p className="mt-5 leading-relaxed text-on-navy-muted">{p.description}</p>
-          <ul className="mt-6 space-y-2.5 text-sm">
-            {p.work.map((h) => (
-              <li key={h} className="flex gap-2.5">
-                <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-mint" />
-                {h}
-              </li>
-            ))}
-          </ul>
-          <div className="mt-6 flex flex-wrap gap-2">
-            {p.stack.map((s) => (
-              <span key={s} className="rounded-full border border-navy-line px-3 py-1 text-xs text-on-navy-muted">
-                {s}
-              </span>
-            ))}
-          </div>
           <div className="mt-auto flex flex-wrap gap-3 pt-8">
             {p.links?.map((l, i) => (
               <a
@@ -214,7 +143,39 @@ function FeaturedProject({ p }: { p: Project }) {
             ))}
           </div>
         </div>
+        <div className="flex flex-col">
+          <ul className="space-y-2.5 text-sm">
+            {p.work.map((h) => (
+              <li key={h} className="flex gap-2.5">
+                <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-mint" />
+                {h}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {p.stack.map((s) => (
+              <span key={s} className="rounded-full border border-navy-line px-3 py-1 text-xs text-on-navy-muted">
+                {s}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
+      <figure className="border-t border-navy-line bg-[#0a1524] px-4 pt-8 pb-6 sm:px-10">
+        <div className="mx-auto max-w-5xl overflow-hidden rounded-lg border border-navy-line shadow-[0_30px_60px_-20px_rgba(0,0,0,0.7)]">
+          <Image
+            src="/zestbill-dashboard.webp"
+            alt="ZestBill dashboard showing today's sales, amounts to collect, a 14-day sales chart, outstanding dues and recent invoices"
+            width={1600}
+            height={900}
+            sizes="(min-width: 1280px) 1024px, 100vw"
+            className="h-auto w-full"
+          />
+        </div>
+        <figcaption className="mt-3 text-center text-xs text-on-navy-muted">
+          ZestBill dashboard, shown with sample data
+        </figcaption>
+      </figure>
     </article>
   );
 }
